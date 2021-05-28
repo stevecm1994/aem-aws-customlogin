@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:lastModified="{Date}2021-05-28T00:44:10.553+05:30"
+        cq:lastModifiedBy="admin"
+        cq:template="/apps/customlogin/templates/page-blank"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="SignUp"
+        sling:resourceType="customlogin/components/structure/page">
+        <par
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/foundation/components/parsys">
+            <title
+                jcr:created="{Date}2021-05-28T00:44:05.801+05:30"
+                jcr:createdBy="admin"
+                jcr:lastModified="{Date}2021-05-28T00:44:10.551+05:30"
+                jcr:lastModifiedBy="admin"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="SignUp"
+                sling:resourceType="customlogin/components/content/title"/>
+            <signup
+                jcr:created="{Date}2021-05-28T00:43:33.215+05:30"
+                jcr:createdBy="admin"
+                jcr:lastModified="{Date}2021-05-28T00:43:33.215+05:30"
+                jcr:lastModifiedBy="admin"
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="customlogin/components/content/signUp"/>
+        </par>
+    </jcr:content>
+</jcr:root>

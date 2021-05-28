@@ -88,5 +88,9 @@
                     sling:resourceType="customlogin/components/content/sharing"/>
             </responsivegrid>
         </root>
+        <image/>
     </jcr:content>
+    <login/>
+    <confirmsignup/>
+    <signup/>
 </jcr:root>
