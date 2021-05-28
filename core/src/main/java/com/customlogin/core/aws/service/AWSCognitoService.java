@@ -38,7 +38,7 @@ public class AWSCognitoService {
     
     private AWSCognitoIdentityProvider createCognitoClient() {
     	LOG.info("inside createCognitoClient method");
-        AWSCredentials cred = new BasicAWSCredentials("AKIAUWXCRC4VLYWQMDNV", "fDm6jyfL4oj8jCkZcD2rIF6O3Q4Mqyf6Ke3k5EG/");
+        AWSCredentials cred = new BasicAWSCredentials("", "");
         //AWSCredentials cred = new AnonymousAWSCredentials();
         AWSCredentialsProvider credProvider = new AWSStaticCredentialsProvider(cred);
         return AWSCognitoIdentityProviderClientBuilder.standard()
