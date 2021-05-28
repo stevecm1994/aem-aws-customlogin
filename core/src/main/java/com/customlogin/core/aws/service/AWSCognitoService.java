@@ -26,8 +26,8 @@ import com.amazonaws.services.cognitoidp.model.SignUpResult;
 public class AWSCognitoService {
 	
 	private AWSCognitoIdentityProvider client ;
-    private final String clientId = "65scll5rbd9s399dgds76dfkmj";
-    private final String userPool = "us-east-1_6QziSvnhD";
+    private final String clientId = "";
+    private final String userPool = "";
 
     private static final Logger LOG = LoggerFactory.getLogger(AWSCognitoService.class);
     
