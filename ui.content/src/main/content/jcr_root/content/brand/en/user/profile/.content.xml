@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:lastModified="{Date}2021-05-29T19:35:06.833+05:30"
+        cq:lastModifiedBy="admin"
+        cq:template="/apps/customlogin/templates/page-blank"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Profile"
+        sling:resourceType="customlogin/components/structure/page">
+        <par
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="wcm/foundation/components/parsys">
+            <title
+                jcr:created="{Date}2021-05-29T19:35:04.011+05:30"
+                jcr:createdBy="admin"
+                jcr:lastModified="{Date}2021-05-29T19:35:04.011+05:30"
+                jcr:lastModifiedBy="admin"
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="customlogin/components/content/title"/>
+            <text
+                jcr:created="{Date}2021-05-29T19:34:03.263+05:30"
+                jcr:createdBy="admin"
+                jcr:lastModified="{Date}2021-05-29T19:34:56.946+05:30"
+                jcr:lastModifiedBy="admin"
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="customlogin/components/content/text"
+                text="&lt;p>This is testing&amp;nbsp;&amp;nbsp;&lt;/p>&#xd;&#xa;&lt;p>To Check filters&lt;/p>&#xd;&#xa;"
+                textIsRich="true"/>
+        </par>
+    </jcr:content>
+</jcr:root>

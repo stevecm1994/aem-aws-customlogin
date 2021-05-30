@@ -1,0 +1,62 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<form id="login-form">
+         <input type="text" name ="confirmationcode" placeholder="Confirmation Code" id="confirmationcode">
+         <input type="submit" class "subButton" value="Confirm">
+         <div id="msg"></div>
+      </form>
+      <script type="text/javascript">
+         $(document).ready(function() {
+             $("#login-form").submit(function(e) {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 loginViaAjax();
+             });
+         
+             function loginViaAjax() {        
+                 var serviceUrl = "/bin/customlogin/userManagement.CONFIRMUSER.json";
+                 const queryString = window.location.search;
+                 console.log(queryString);
+                 var userName = new URLSearchParams(queryString).get('username');
+                 $.ajax({
+						type: "POST",
+						url: serviceUrl,							
+						data:{userName: userName,confirmationCode:$('#confirmationcode').val().trim()},
+						success: function(response) {
+							console.log(response);
+							var url= window.location.href;
+							var status = response.confirmSignUpStatus;
+							if(status==="success"){
+							var redirectUrl = "/content/brand/en/login.html";
+							window.location = redirectUrl;
+							}
+							else{
+								 $('#msg').empty();
+								 $('<p>Username or Password is wrong </p>').appendTo('#msg');
+							}
+						},
+						error: function(e) {
+                     	alert("error one")
+							console.log("ERROR: ", e);
+							display(e);
+						},
+					});
+         
+             }
+         });
+      </script>
+      <style>
+         .login {
+         height: auto;
+         width: 300px;
+         margin: auto;
+         border: 1px #CCC solid;
+         padding: 10px;
+         }
+         .login input {
+         padding: 5px;
+         margin: 5px
+         }
+         fieldset {
+         border-width: 0px;
+         }
+      </style>

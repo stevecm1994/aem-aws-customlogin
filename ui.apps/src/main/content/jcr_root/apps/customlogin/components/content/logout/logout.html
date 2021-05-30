@@ -1,0 +1,44 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<sly data-sly-use.sessionAttribute="com.psrebrand.core.models.LoginSessionAttribteModel"/>
+<form id="login-button" data-sly-test="${sessionAttribute.userCookie}">
+<input type="hidden" name="csrf_token" value="${sessionAttribute.csrfToken}" id="token"> <br>
+<input type="submit" class "subButton" value="Log Out">
+</form>
+<style>
+fieldset {
+    border-width: 0px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+$("#login-button").submit(function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			logOutViaAjax();
+		});
+
+		function logOutViaAjax() {
+       	var urlToCall="/bin/psrebrand/userProfileManagement.LOGOUT.json";
+        var url= window.location.href;
+		$.ajax({
+			type : "POST",
+			url : urlToCall,
+            data:{csrf_token:$('#token').val().trim()},
+			success : function(response) {
+            var log_dtls = JSON.parse(response.logoutResponse);
+			var log_details = JSON.parse(log_dtls);
+			var status = log_details.status;
+			if(status==="Success"){
+            var redirectUrl = "/content/ps-rebrand/en/industries/login.html";
+            window.location = redirectUrl;
+            }
+			},
+			error : function(e) {
+				console.log("ERROR: ", e);
+				display(e);
+			},
+		});
+
+	}
+});
+</script>

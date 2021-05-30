@@ -26,19 +26,21 @@ import com.amazonaws.services.cognitoidp.model.SignUpResult;
 public class AWSCognitoService {
 	
 	private AWSCognitoIdentityProvider client ;
-    private final String clientId = "";
-    private final String userPool = "";
+    private final String clientId ;
+    private final String userPool ;
 
     private static final Logger LOG = LoggerFactory.getLogger(AWSCognitoService.class);
     
-    public AWSCognitoService() {
-        client = createCognitoClient();
+    public AWSCognitoService(AWSConfigurations awsConfigurations) {   	
+        client = createCognitoClient(awsConfigurations);
+        clientId = awsConfigurations.getCognitoClientId();
+        userPool = awsConfigurations.getUserPoolId();
         //LOG.info(client.toString());
     }
     
-    private AWSCognitoIdentityProvider createCognitoClient() {
+    private AWSCognitoIdentityProvider createCognitoClient(AWSConfigurations awsConfigurations) {
     	LOG.info("inside createCognitoClient method");
-        AWSCredentials cred = new BasicAWSCredentials("", "");
+        AWSCredentials cred = new BasicAWSCredentials(awsConfigurations.getAwsAccessKey(),awsConfigurations.getAwsSecretKey());
         //AWSCredentials cred = new AnonymousAWSCredentials();
         AWSCredentialsProvider credProvider = new AWSStaticCredentialsProvider(cred);
         return AWSCognitoIdentityProviderClientBuilder.standard()

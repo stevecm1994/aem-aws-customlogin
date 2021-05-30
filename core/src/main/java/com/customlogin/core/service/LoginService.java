@@ -10,25 +10,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.customlogin.core.aws.service.AWSCognitoService;
+import com.customlogin.core.aws.service.AWSConfigurations;
 import com.customlogin.core.models.UserLoginStatus;
 
 public class LoginService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginService.class);
 	
-	public UserLoginStatus normalLoginAuthentication(SlingHttpServletResponse response,final String username, final String password) {
+	public UserLoginStatus normalLoginAuthentication(SlingHttpServletResponse response,final String username, final String password,AWSConfigurations awsConfigurations) {
 		LOGGER.info("Inside LoginServiceImpl :  normalLoginAuthentication()");
-		String idToken = authenticate(username, password);
+		String idToken = authenticate(username, password,awsConfigurations);
 		UserLoginStatus userLoginStatus = setJwtCookie(response, idToken);
 		LOGGER.info("Exiting LoginServiceImpl :  normalLoginAuthentication()");
 		return userLoginStatus;
 	}
 	
-	public String authenticate(final String userName, final String password) {
+	public String authenticate(final String userName, final String password,AWSConfigurations awsConfigurations) {
 
 		LOGGER.debug("Entering Authenticate of UserProfile");
 		String idToken = StringUtils.EMPTY;
-		AWSCognitoService congnitoService = new AWSCognitoService();
+		AWSCognitoService congnitoService = new AWSCognitoService(awsConfigurations);
 		try {
 			Map<String, String> authResults = congnitoService.login(userName, password);			
 			if(authResults.get("message").equals("Successfully login")) {
