@@ -25,7 +25,7 @@ property={
         "sling.servlet.paths="+ "/bin/customlogin/userManagement",
         "sling.servlet.extensions=" + "json"
 })
-public class UserProfileManagementServlet extends SlingAllMethodsServlet{
+public class UserStateManagementServlet extends SlingAllMethodsServlet{
 	
 
 	private static final long serialVersionUID = 7496637721636510388L;
