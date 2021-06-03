@@ -2,7 +2,8 @@
 <style>  
   .container {  
     padding: 50px;  
-  background-color: lightgrey;  
+    background-color: lightgrey; 
+    width: 970px;
 }  
   
 input[type=text], input[type=password], textarea {  
@@ -68,32 +69,32 @@ width: 100%;
 		<center>  <h1> Update User Profile</h1> </center>  
 		<hr>  
 		<label> Firstname </label>   
-		<input type="text" name="firstname" placeholder= ${userDetails.userDetails.firstName} id="firstname" size="15" required />     
+		<input type="text" name="firstname" placeholder= "First Name" id="updatefirstname" size="15" value = ${userDetails.userDetails.firstName} required />     
 		<label> Lastname: </label>    
-		<input type="text" name="lastname" placeholder="Lastname" id="lastname" size="15"required />
+		<input type="text" name="lastname" placeholder= "Last Name"  id="updatelastname" size="15" value = ${userDetails.userDetails.lastName} required />
 		<label> Email: </label>
         <div class="email">${userDetails.userDetails.email}</div>    
 		<div>  
 			<label>Intrests : </label>   
 			<select> 
-				<option value="Course">Software engineering</option>  
-				<option value="BCA">Data science</option>  
-				<option value="BBA">AI/Machine Learning</option>  
-				<option value="B.Tech">Cloud</option>  
-				<option value="MBA">Quality Analyst</option>  
-				<option value="MCA">Product Managment</option>   
+				<option value="Software engineering" id ="intrest">Software engineering</option>  
+				<option value="Data science" id ="intrest" >Data science</option>  
+				<option value="AI/Machine Learning" id ="intrest" >AI/Machine Learning</option>  
+				<option value="Cloud" id ="intrest" >Cloud</option>  
+				<option value="Quality Analyst" id ="intrest" >Quality Analyst</option>  
+				<option value="Product Management" id ="intrest">Product Management </option>   
 			</select>  
 		</div>  
 		<div>  
 			<label> Gender :</label><br>  
-			<input type="radio" value="Male" name="gender" checked > Male   
-			<input type="radio" value="Female" name="gender"> Female   
-			<input type="radio" value="Other" name="gender"> Other  
+			<input type="radio" value="Male" name="gender" checked id ="gender" > Male   
+			<input type="radio" value="Female" name="gender" id ="gender" > Female   
+			<input type="radio" value="Other" name="gender" id ="gender"> Other  
 		</div>  
 		<label>Phone :</label>     
-		<input type="text" name="phone" placeholder="phone no." size="12" value="+91"  />   
+		<input type="text" name="phone" placeholder="phone no." size="12" value="+91" id="phonenumber" />   
 		<label>Current Address :</label>  
-		<textarea cols="80" rows="5" placeholder="Current Address" value="address" >  </textarea>   
+		<textarea cols="80" rows="5" placeholder="Current Address" value="address" id="address"> ${userDetails.userDetails.address} </textarea>   
 		<button type="submit" class="registerbtn">Save</button> 
 	<div/>
 </form>
@@ -106,19 +107,24 @@ width: 100%;
              });
          
              function loginViaAjax() {        
-                 var serviceUrl = "/bin/customlogin/userDataManagment.json";
+                 var serviceUrl = "/bin/customlogin/userDataManagment.UPDATE.json";
                  $.ajax({
 						type: "POST",
 						url: serviceUrl,							
-						data:{firstname:$('#firstname').val().trim(),lastname:$('#lastname').val().trim()},
+						data:{	firstname:$('#updatefirstname').val().trim(),
+								lastname:$('#updatelastname').val().trim(),
+								phonenumber:$('#phonenumber').val().trim(),
+								address : $('#address').val().trim(),
+								gender : $('#gender').val().trim(),
+								intrest : $('#intrest').val().trim(),
+							},
 						success: function(response) {
 							console.log(response);
 							var url= window.location.href;
 							var status = response.loginstatus;
 							if(status==="success"){
-							var redirectUrl = "/content/brand/en.html";
-							window.location = redirectUrl;
-							}
+                            location.reload();
+                            }
 							else{
 								 $('#msg').empty();
 								 $('<p>Username or Password is wrong </p>').appendTo('#msg');

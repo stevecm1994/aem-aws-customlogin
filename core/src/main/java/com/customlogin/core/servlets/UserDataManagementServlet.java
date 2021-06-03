@@ -51,7 +51,7 @@ public class UserDataManagementServlet extends SlingAllMethodsServlet {
 	}
 	
 	@Override
-	protected void doPost(final SlingHttpServletRequest request, final SlingHttpServletResponse response) {
+	protected void doPost(final SlingHttpServletRequest request, final SlingHttpServletResponse response) throws IOException {
 		
 		final Cookie cookie = request.getCookie("JwtToken");
 		final String selector = request.getRequestPathInfo().getSelectorString();
@@ -59,7 +59,7 @@ public class UserDataManagementServlet extends SlingAllMethodsServlet {
 		if (null != cookie) {
 			DataRequestProcessor dataRequestProcessor = getRequestType(selector);			
 			LOGGER.info("starting update user post method 2");
-			dataRequestProcessor.processDataRequest(cookie, response, awsConfigurations, jWTProcessor);
+			dataRequestProcessor.processDataRequest(request,cookie, response, awsConfigurations, jWTProcessor);
 			
 		}
 	}
