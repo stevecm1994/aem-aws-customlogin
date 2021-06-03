@@ -1,44 +1,31 @@
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<sly data-sly-use.sessionAttribute="com.psrebrand.core.models.LoginSessionAttribteModel"/>
-<form id="login-button" data-sly-test="${sessionAttribute.userCookie}">
-<input type="hidden" name="csrf_token" value="${sessionAttribute.csrfToken}" id="token"> <br>
-<input type="submit" class "subButton" value="Log Out">
+<form id="logout-form" >
+	<input type="button" class="btn btn-primary btn-block" value="logout" onclick = "del_cookie()">
 </form>
-<style>
-fieldset {
-    border-width: 0px;
-}
-</style>
-<script type="text/javascript">
-$(document).ready(function(){
-$("#login-button").submit(function(e) {
-			e.preventDefault();
-			e.stopPropagation();
-			logOutViaAjax();
-		});
+<script>
 
-		function logOutViaAjax() {
-       	var urlToCall="/bin/psrebrand/userProfileManagement.LOGOUT.json";
-        var url= window.location.href;
-		$.ajax({
-			type : "POST",
-			url : urlToCall,
-            data:{csrf_token:$('#token').val().trim()},
-			success : function(response) {
-            var log_dtls = JSON.parse(response.logoutResponse);
-			var log_details = JSON.parse(log_dtls);
-			var status = log_details.status;
-			if(status==="Success"){
-            var redirectUrl = "/content/ps-rebrand/en/industries/login.html";
-            window.location = redirectUrl;
-            }
+function del_cookie() {        
+    var serviceUrl = "/bin/customlogin/userManagement.LOGOUT.json";
+    $.ajax({
+			type: "POST",
+			url: serviceUrl,							
+			success: function(response) {
+				console.log(response);
+				var status = response.logoutStatus;
+				if(status==="success"){
+				location.reload();
+				}
+				else{
+					 $('#msg').empty();
+					 $('<p>Username or Password is wrong </p>').appendTo('#msg');
+				}
 			},
-			error : function(e) {
+			error: function(e) {
+        	alert("error one")
 				console.log("ERROR: ", e);
 				display(e);
 			},
 		});
 
-	}
-});
+}
+	
 </script>

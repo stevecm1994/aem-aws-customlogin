@@ -1,18 +1,28 @@
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<form id="login-form">
-         <input type="text" name ="username" placeholder="email or username" id="username">
-         <input type="password" name="password"  placeholder="password" id="password"> <br>
-         <input type="submit" class "subButton" value="Log In">
-         <div id="msg"></div>
-      </form>
+<form id="login-form" >
+    <p class="hint-text">Sign in with your social media account</p>
+    <div class="form-group social-btn clearfix">
+        <a href="#" class="btn btn-primary pull-left"><i class="fa fa-facebook"></i> Facebook</a>
+        <a href="#" class="btn btn-info pull-right"><i class="fa fa-twitter"></i> Twitter</a>
+    </div>
+    <div class="or-seperator"><b>or</b></div>
+    <div class="form-group">
+    	<input type="text" class="form-control" placeholder="Username" id="username" required="required">
+    </div>
+    <div class="form-group">
+    	<input type="password" class="form-control" placeholder="Password" id="password" required="required">
+    </div>
+    <input type="submit" class="btn btn-primary btn-block" value="Login">
+    <div class="form-footer">
+    	<a href="#">Forgot Your password?</a>
+    </div>
+</form>
       <script type="text/javascript">
          $(document).ready(function() {
              $("#login-form").submit(function(e) {
                  e.preventDefault();
                  e.stopPropagation();
                  loginViaAjax();
-             });
-         
+             });         
              function loginViaAjax() {        
                  var serviceUrl = "/bin/customlogin/userManagement.LOGIN.json";
                  $.ajax({
@@ -24,8 +34,7 @@
 							var url= window.location.href;
 							var status = response.loginstatus;
 							if(status==="success"){
-							var redirectUrl = "/content/brand/en.html";
-							window.location = redirectUrl;
+							location.reload();
 							}
 							else{
 								 $('#msg').empty();
@@ -42,19 +51,3 @@
              }
          });
       </script>
-      <style>
-         .login {
-         height: auto;
-         width: 300px;
-         margin: auto;
-         border: 1px #CCC solid;
-         padding: 10px;
-         }
-         .login input {
-         padding: 5px;
-         margin: 5px
-         }
-         fieldset {
-         border-width: 0px;
-         }
-      </style>

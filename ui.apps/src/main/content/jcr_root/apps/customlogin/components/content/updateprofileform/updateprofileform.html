@@ -1,0 +1,136 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<style>  
+  .container {  
+    padding: 50px;  
+  background-color: lightgrey;  
+}  
+  
+input[type=text], input[type=password], textarea {  
+  width: 100%;  
+  padding: 15px;  
+  margin: 5px 0 22px 0;  
+  display: inline-block;  
+  border: none;  
+  background: #f1f1f1;  
+}  
+input[type=text]:focus, input[type=password]:focus {  
+  background-color: orange;  
+  outline: none;  
+}
+select {
+                appearance: none;
+                outline: 0;
+                background: #f1f1f1;
+				padding: 10px; 
+                width: 50%;
+                height: 100%;
+                color: black;
+                cursor: pointer;
+                border:1px solid black;
+                border-radius:4px;
+            } 
+label{
+font-size:20px;
+font-weight: bold;
+} 
+ div {  
+            padding: 10px 0;  
+         }  
+hr {  
+  border: 1px solid #f1f1f1;  
+  margin-bottom: 25px;  
+}  
+.registerbtn {  
+  background-color: #4CAF50;  
+  color: white;  
+  padding: 16px 20px;  
+  margin: 8px 0;  
+  border: none;  
+  cursor: pointer;  
+  width: 100%;  
+  opacity: 0.9;  
+}  
+.registerbtn:hover {  
+  opacity: 1;  
+} 
+.email{
+width: 100%;  
+  padding: 15px;  
+  margin: 5px 0 22px 0;  
+  display: inline-block;  
+  border: none;  
+  background: #f1f1f1;
+}
+</style> 
+<form id="update-user-form">
+	<sly data-sly-use.userDetails="com.customlogin.core.models.TokenToUserProfileModel" />
+	<div class="container">  
+		<center>  <h1> Update User Profile</h1> </center>  
+		<hr>  
+		<label> Firstname </label>   
+		<input type="text" name="firstname" placeholder= ${userDetails.userDetails.firstName} id="firstname" size="15" required />     
+		<label> Lastname: </label>    
+		<input type="text" name="lastname" placeholder="Lastname" id="lastname" size="15"required />
+		<label> Email: </label>
+        <div class="email">${userDetails.userDetails.email}</div>    
+		<div>  
+			<label>Intrests : </label>   
+			<select> 
+				<option value="Course">Software engineering</option>  
+				<option value="BCA">Data science</option>  
+				<option value="BBA">AI/Machine Learning</option>  
+				<option value="B.Tech">Cloud</option>  
+				<option value="MBA">Quality Analyst</option>  
+				<option value="MCA">Product Managment</option>   
+			</select>  
+		</div>  
+		<div>  
+			<label> Gender :</label><br>  
+			<input type="radio" value="Male" name="gender" checked > Male   
+			<input type="radio" value="Female" name="gender"> Female   
+			<input type="radio" value="Other" name="gender"> Other  
+		</div>  
+		<label>Phone :</label>     
+		<input type="text" name="phone" placeholder="phone no." size="12" value="+91"  />   
+		<label>Current Address :</label>  
+		<textarea cols="80" rows="5" placeholder="Current Address" value="address" >  </textarea>   
+		<button type="submit" class="registerbtn">Save</button> 
+	<div/>
+</form>
+<script type="text/javascript">
+         $(document).ready(function() {
+             $("#update-user-form").submit(function(e) {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 loginViaAjax();
+             });
+         
+             function loginViaAjax() {        
+                 var serviceUrl = "/bin/customlogin/userDataManagment.json";
+                 $.ajax({
+						type: "POST",
+						url: serviceUrl,							
+						data:{firstname:$('#firstname').val().trim(),lastname:$('#lastname').val().trim()},
+						success: function(response) {
+							console.log(response);
+							var url= window.location.href;
+							var status = response.loginstatus;
+							if(status==="success"){
+							var redirectUrl = "/content/brand/en.html";
+							window.location = redirectUrl;
+							}
+							else{
+								 $('#msg').empty();
+								 $('<p>Username or Password is wrong </p>').appendTo('#msg');
+							}
+						},
+						error: function(e) {
+                     	alert("error one")
+							console.log("ERROR: ", e);
+							display(e);
+						},
+					});
+         
+             }
+         });
+</script>

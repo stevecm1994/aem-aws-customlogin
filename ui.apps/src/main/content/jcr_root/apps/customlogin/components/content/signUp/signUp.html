@@ -1,26 +1,77 @@
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<form id="signup-form" class="signup">
-         <input type="text" name ="username" placeholder="username" id="username"><br>
-         <input type="password" name="password"  placeholder="password" id="password"> <br>
-		 <input type="text" name ="email" placeholder="email" id="email"><br>
-         <input type="submit" class "subButton" value="Sign Up">
-         <div id="msg"></div>
-    </form>
-      <script type="text/javascript">
+<form id="signup-form" >
+    <p class="hint-text">Fill in this form to create your account!</p>
+    <div class="form-group">
+    <input type="text" class="form-control" placeholder="Username" required="required" id="signupusername">
+    </div>
+    <div class="form-group">
+    <input type="password" class="form-control" placeholder="Password" required="required" id="signuppassword">
+    </div>
+    <div class="form-group">
+    <input type="text" class="form-control" placeholder="Email" required="required" id="email">
+    </div>
+    <div class="form-group">
+    <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms &amp; Conditions</a></label>
+    </div>
+    <input type="submit" class="btn btn-primary btn-block" value="Sign up">
+</form>
+<form id="confirm-signup-form" hidden >
+	<p class="hint-text">Please Enter Confirmation Code</p>
+    <div class="form-group">
+    <input type="text" class="form-control" placeholder="Confirmation Code" required="required" id="confirmationcode">
+    </div>
+    <input type="submit" class="btn btn-primary btn-block" value="Confirm">
+</form>
+<p class="hint-text" id ="confirm-signup-success" hidden >Sign Up Success. Please login and Complete your profile</p>
+<script type="text/javascript">
          $(document).ready(function() {
              $("#signup-form").submit(function(e) {
                  e.preventDefault();
                  e.stopPropagation();
                  signUpViaAjax();
              });
-         
-             function signUpViaAjax() {        
+             $("#confirm-signup-form").submit(function(e) {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 confirmSignUpViaAjax();
+             });
+             function confirmSignUpViaAjax() {        
+                     var serviceUrl = "/bin/customlogin/userManagement.CONFIRMUSER.json";
+                     const queryString = window.location.search;
+                     console.log(queryString);
+                     //var userName = new URLSearchParams(queryString).get('username');
+                     $.ajax({
+                            type: "POST",
+                            url: serviceUrl,							
+                            data:{userName: $('#signupusername').val().trim(),confirmationCode:$('#confirmationcode').val().trim()},
+                            success: function(response) {
+                                console.log(response);
+                                var url= window.location.href;
+                                var status = response.confirmSignUpStatus;
+                                if(status==="success"){
+                                document.getElementById("signup-form").style.display = "none";
+                                document.getElementById("confirm-signup-form").style.display = "none";
+                                document.getElementById("confirm-signup-success").style.display = "block";
+                                }
+                                else{
+                                     $('#msg').empty();
+                                     $('<p>Username or Password is wrong </p>').appendTo('#msg');
+                                }
+                            },
+                            error: function(e) {
+                            alert("error one")
+                                console.log("ERROR: ", e);
+                                display(e);
+                            },
+                        });
+             
+                 }
+			 function signUpViaAjax() {        
                  var serviceUrl = "/bin/customlogin/userManagement.SIGNUP.json";
 				 var userName = $('#username').val().trim();
                  $.ajax({
 						type: "POST",
 						url: serviceUrl,							
-						data:{userName:$('#username').val().trim(),password:$('#password').val().trim(),email:$('#email').val().trim()},
+						data:{userName:$('#signupusername').val().trim(),password:$('#signuppassword').val().trim(),email:$('#email').val().trim()},
 						success: function(response) {
 							console.log(response);
 							var url= window.location.href;
@@ -28,8 +79,8 @@
 							var status = response.signUpStatus;
 							console.log(status);
 							if(status==="success"){
-							var redirectUrl = "/content/brand/en/confirmsignup.html?username="+userName;
-							window.location = redirectUrl;
+                            document.getElementById("signup-form").style.display = "none";
+                            document.getElementById("confirm-signup-form").style.display = "block";
 							}
 							else{
 								 $('#msg').empty();
@@ -44,21 +95,5 @@
 					});
          
              }
-         });
+             });
       </script>
-      <style>
-         .signup {
-         height: auto;
-         width: 300px;
-         margin: auto;
-         border: 1px #CCC solid;
-         padding: 10px;
-         }
-         .signup input {
-         padding: 5px;
-         margin: 5px
-         }
-         fieldset {
-         border-width: 0px;
-         }
-      </style>
