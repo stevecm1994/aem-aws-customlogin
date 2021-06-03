@@ -25,11 +25,13 @@ public class AWSDynamoDBService {
 	
 	private AmazonDynamoDB client  ;
 	private DynamoDB dynamoDb;
+	private String userTable;
 	
 	public AWSDynamoDBService(AWSConfigurations awsConfigurations) {
 		LOG.info("Inside Dynamo db Constructor");
 		client = createDynamoDbClient(awsConfigurations); 
 		dynamoDb = new DynamoDB(client);
+		userTable = awsConfigurations.getUsertable();
 	}
 	
 	private AmazonDynamoDB createDynamoDbClient(AWSConfigurations awsConfigurations) {
@@ -50,7 +52,7 @@ public class AWSDynamoDBService {
 	}
 	
 	public UserDetails getUserDetails(String key) {
-		Table table = dynamoDb.getTable("thc-user-profile-test");
+		Table table = dynamoDb.getTable(userTable);
 		GetItemSpec spec = new GetItemSpec().withPrimaryKey("userId", key);
 		try {
 			LOG.info("attemting to ead from dynamodb");

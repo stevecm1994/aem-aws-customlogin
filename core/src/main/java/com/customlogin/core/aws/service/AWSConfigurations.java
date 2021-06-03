@@ -25,7 +25,10 @@ public class AWSConfigurations {
 		String user_pool_id() default StringUtils.EMPTY;
 		
 		@AttributeDefinition(name = "AWS Cognito Client Id",description = "AWS Cognito Client Id")
-		String cognito_client_id() default StringUtils.EMPTY;		
+		String cognito_client_id() default StringUtils.EMPTY;
+		
+		@AttributeDefinition(name = "AWS DynamoDb User Table",description = "AWS DynamoDb User Table Name")
+		String dynamo_db_user_table() default StringUtils.EMPTY;
 		
 	}
 	
@@ -37,14 +40,21 @@ public class AWSConfigurations {
 	
 	private String cognitoClientId;
 	
+	private String usertable;
+	
 	@Activate
     protected void activate(final Config config) {
 		awsAccessKey = config.aws_access_key();
 		awsSecretKey = config.aws_secret_key();
 		userPoolId = config.user_pool_id();
 		cognitoClientId = config.cognito_client_id();
+		usertable = config.dynamo_db_user_table();
 		
     }
+
+	public String getUsertable() {
+		return usertable;
+	}
 
 	public String getAwsAccessKey() {
 		return awsAccessKey;
