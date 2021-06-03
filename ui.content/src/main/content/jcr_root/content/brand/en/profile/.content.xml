@@ -2,11 +2,12 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
     jcr:primaryType="cq:Page">
     <jcr:content
-        cq:lastModified="{Date}2021-06-03T16:07:11.627+05:30"
+        cq:lastModified="{Date}2021-06-03T16:07:42.178+05:30"
         cq:lastModifiedBy="admin"
         cq:template="/apps/customlogin/templates/brandpage-content"
         jcr:primaryType="cq:PageContent"
-        jcr:title="English"
+        jcr:title="Profile"
         sling:resourceType="customlogin/components/structure/brandpage"/>
-    <profile/>
+    <updateprofile/>
+    <updatepassword/>
 </jcr:root>
