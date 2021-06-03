@@ -31,7 +31,7 @@ immediate = true,
 property = {
         Constants.SERVICE_DESCRIPTION + "=Filter to check jwt Authetication to the User Profile Pages",
         EngineConstants.SLING_FILTER_SCOPE + "=" + EngineConstants.FILTER_SCOPE_REQUEST,
-        EngineConstants.SLING_FILTER_PATTERN + "=/content/brand/en/user/profile",
+        EngineConstants.SLING_FILTER_PATTERN + "=/content/brand/en/profile(.*)",
         Constants.SERVICE_RANKING + ":Integer=-2000"
 
 })
@@ -66,17 +66,17 @@ public class AWSCognitoJwtAuthenticationFilter implements Filter {
 			} catch (ParseException |BadJOSEException | JOSEException e) {
 				LOGGER.info("***********JWT Claims cannot be proccessed for the path {} **********",slingRequest.getPathInfo());
 				LOGGER.info(e.toString());
-				slingResponse.sendRedirect("/content/brand/en/login.html");
+				slingResponse.sendRedirect("/content/brand/en.html");
 			}			
 		}else {
 			LOGGER.info("***********No JWT Cookie for the path {} **********",slingRequest.getPathInfo());
-			slingResponse.sendRedirect("/content/brand/en/login.html");
+			slingResponse.sendRedirect("/content/brand/en.html");
 		}
 		if(idTokenVerified) {
 			chain.doFilter(request, response);
 		}else {
 			LOGGER.info("***********JWT Claim not verified {} **********",slingRequest.getPathInfo());
-			slingResponse.sendRedirect("/content/brand/en/login.html");
+			slingResponse.sendRedirect("/content/brand/en.html");
 		}		
 	}
 

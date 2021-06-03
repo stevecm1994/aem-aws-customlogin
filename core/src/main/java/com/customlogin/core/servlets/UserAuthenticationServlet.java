@@ -15,7 +15,8 @@ import org.osgi.service.component.annotations.Reference;
 import com.customlogin.core.aws.service.AWSConfigurations;
 import com.customlogin.core.service.ConfirmSignUpProcessor;
 import com.customlogin.core.service.LoginProcessor;
-import com.customlogin.core.service.RequestProcessor;
+import com.customlogin.core.service.LogoutProcessor;
+import com.customlogin.core.service.AuthenticationRequestProcessor;
 import com.customlogin.core.service.SignUpProcessor;
 
 @Component(service=Servlet.class,
@@ -25,7 +26,7 @@ property={
         "sling.servlet.paths="+ "/bin/customlogin/userManagement",
         "sling.servlet.extensions=" + "json"
 })
-public class UserStateManagementServlet extends SlingAllMethodsServlet{
+public class UserAuthenticationServlet extends SlingAllMethodsServlet{
 	
 
 	private static final long serialVersionUID = 7496637721636510388L;
@@ -44,28 +45,31 @@ public class UserStateManagementServlet extends SlingAllMethodsServlet{
 	protected void doPost(final SlingHttpServletRequest request, final SlingHttpServletResponse response)
 			throws ServletException, IOException {
 		final String selector = request.getRequestPathInfo().getSelectorString();
-		RequestProcessor requestProcessor = getRequestType(selector);
-		if(requestProcessor != null) {
-			requestProcessor.processRequest(request, response, awsConfigurations);
+		AuthenticationRequestProcessor authrequestProcessor = getRequestType(selector);
+		if(authrequestProcessor != null) {
+			authrequestProcessor.processRequest(request, response, awsConfigurations);
 		}
 	}
 	
-	private RequestProcessor getRequestType(String selector) {		
-		RequestProcessor requestProcessor = null;
+	private AuthenticationRequestProcessor getRequestType(String selector) {		
+		AuthenticationRequestProcessor authrequestProcessor = null;
 		switch (selector) {
 		case "LOGIN":
-			requestProcessor = new LoginProcessor();
+			authrequestProcessor = new LoginProcessor();
 			break;
 		case "SIGNUP":
-			requestProcessor = new SignUpProcessor();
+			authrequestProcessor = new SignUpProcessor();
 			break;
 		case "CONFIRMUSER":
-			requestProcessor = new ConfirmSignUpProcessor();
+			authrequestProcessor = new ConfirmSignUpProcessor();
+			break;
+		case "LOGOUT":
+			authrequestProcessor = new LogoutProcessor();
 			break;
 		default:
 			break;
 		}
-		return requestProcessor;
+		return authrequestProcessor;
 	}
 
 }

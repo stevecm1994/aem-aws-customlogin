@@ -13,6 +13,8 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
+import com.amazonaws.services.cognitoidp.model.AdminGetUserRequest;
+import com.amazonaws.services.cognitoidp.model.AdminGetUserResult;
 import com.amazonaws.services.cognitoidp.model.AdminInitiateAuthRequest;
 import com.amazonaws.services.cognitoidp.model.AdminInitiateAuthResult;
 import com.amazonaws.services.cognitoidp.model.AttributeType;
@@ -20,6 +22,7 @@ import com.amazonaws.services.cognitoidp.model.AuthFlowType;
 import com.amazonaws.services.cognitoidp.model.AuthenticationResultType;
 import com.amazonaws.services.cognitoidp.model.ConfirmSignUpRequest;
 import com.amazonaws.services.cognitoidp.model.ConfirmSignUpResult;
+import com.amazonaws.services.cognitoidp.model.GetUserRequest;
 import com.amazonaws.services.cognitoidp.model.SignUpRequest;
 import com.amazonaws.services.cognitoidp.model.SignUpResult;
 
@@ -56,12 +59,18 @@ public class AWSCognitoService {
 	}
 
 	
-	public ConfirmSignUpResult confirmSignUp(String userName, String confirmationCode) throws Exception {
+	public ConfirmSignUpResult confirmSignUp(final String userName, final String confirmationCode) throws Exception {
 		ConfirmSignUpRequest confirmSignUpRequest = new ConfirmSignUpRequest().withClientId(clientId).withUsername(userName).withConfirmationCode(confirmationCode);
         return client.confirmSignUp(confirmSignUpRequest);
 	}
 
-	
+	public AdminGetUserResult getUser(String userName) throws Exception{
+		AdminGetUserRequest userRequest = new AdminGetUserRequest()
+                .withUsername(userName)
+                .withUserPoolId(userPool);
+		return client.adminGetUser(userRequest);
+		
+	}
 	public Map<String, String> login(String email, String password) throws Exception {
 		Map<String, String> authParams = new LinkedHashMap<String, String>() {{
             put("USERNAME", email);

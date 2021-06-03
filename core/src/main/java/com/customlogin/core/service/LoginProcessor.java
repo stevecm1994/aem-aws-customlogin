@@ -10,7 +10,7 @@ import com.customlogin.core.aws.service.AWSConfigurations;
 import com.customlogin.core.models.UserLoginStatus;
 import com.google.gson.JsonObject;
 
-public class LoginProcessor implements RequestProcessor {
+public class LoginProcessor implements AuthenticationRequestProcessor {
 
 	private static final Logger LOG = LoggerFactory.getLogger(LoginProcessor.class);
 	

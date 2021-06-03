@@ -11,7 +11,7 @@ import com.customlogin.core.aws.service.AWSCognitoService;
 import com.customlogin.core.aws.service.AWSConfigurations;
 import com.google.gson.JsonObject;
 
-public class SignUpProcessor implements RequestProcessor {
+public class SignUpProcessor implements AuthenticationRequestProcessor {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(SignUpProcessor.class);
 
@@ -19,10 +19,14 @@ public class SignUpProcessor implements RequestProcessor {
 	public void processRequest(SlingHttpServletRequest request, SlingHttpServletResponse response,AWSConfigurations awsConfigurations) throws IOException {
 		LOG.info("insdie signup method");
 		AWSCognitoService congnitoService = new AWSCognitoService(awsConfigurations);
+		final String userName = request.getParameter("userName");
+		final String email = request.getParameter("email");
+		final String passWord = request.getParameter("password");
+		LOG.info("username - > {} , pass -- > {} ", userName,passWord);
 		String isSuccess = "false";
 		SignUpResult signUpResult = null;
 		try {
-			signUpResult = congnitoService.signUp(request.getParameter("userName"), request.getParameter("email"), request.getParameter("password"));
+			signUpResult = congnitoService.signUp(userName, email, passWord);
 			if(signUpResult != null) {
 				isSuccess = "true";
 			}
@@ -45,5 +49,6 @@ public class SignUpProcessor implements RequestProcessor {
 		response.getWriter().print(responseObject.toString());	
 		
 	}
+	
 
 }

@@ -42,7 +42,8 @@
                         <!-- Import any version of javax.inject, to allow running on multiple versions of AEM -->
                         <Import-Package>javax.inject;version=0.0.0,*</Import-Package>
                         <Embed-Dependency>aws-java-sdk-core,aws-java-sdk-cognitoidp,ion-java,
-                        jackson-dataformat-cbor,nimbus-jose-jwt,jcip-annotations,json-smart,bcprov-jdk15on;scope=compile|runtime;inline=true</Embed-Dependency> 
+                        jackson-dataformat-cbor,nimbus-jose-jwt,jcip-annotations,json-smart,
+                        bcprov-jdk15on,aws-java-sdk-dynamodb,aws-java-sdk-s3,aws-java-sdk-kms,jmespath-java;scope=compile|runtime;inline=true</Embed-Dependency> 
                         <Embed-Transitive>true</Embed-Transitive>
                         <Sling-Model-Packages>
                             com.customlogin.core
@@ -113,7 +114,7 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.0</version>
 		</dependency>
-        <!--  Aws dependencies -->
+        <!--  AWS Cognito  dependencies -->
         <dependency>
 		    <groupId>com.amazonaws</groupId>
 		    <artifactId>aws-java-sdk-core</artifactId>
@@ -138,6 +139,8 @@
 		    <artifactId>ion-java</artifactId>
 		    <version>1.0.2</version>
 		</dependency>
+		
+		<!-- Nimbus Dependencies -->
 		<dependency>
 	      	<groupId>com.nimbusds</groupId>
 	      	<artifactId>nimbus-jose-jwt</artifactId>
@@ -162,10 +165,36 @@
 		    <version>1.52</version>
 		</dependency>			
    		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-		<dependency>
+   		<dependency>
 		    <groupId>commons-io</groupId>
 		    <artifactId>commons-io</artifactId>
 		    <version>2.9.0</version>
 		</dependency>
+		
+		<!-- DynamoDb Dependencies -->
+		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-dynamodb -->
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk-dynamodb</artifactId>
+		    <version>1.11.759</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk-s3</artifactId>
+		    <version>1.11.759</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-kms -->
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk-kms</artifactId>
+		    <version>1.11.759</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.amazonaws/jmespath-java -->
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>jmespath-java</artifactId>
+		    <version>1.11.759</version>
+		</dependency>		
     </dependencies>
 </project>

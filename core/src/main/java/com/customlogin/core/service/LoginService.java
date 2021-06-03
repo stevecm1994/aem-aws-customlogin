@@ -53,7 +53,7 @@ public class LoginService {
 			if (!idToken.isEmpty()) {
 				jwtTokenCookie = new Cookie("JwtToken", idToken);
 				jwtTokenCookie.setPath(";Path=/;HttpOnly;");// set HttpOnly only using javax servlet 2.5
-				jwtTokenCookie.setMaxAge(600);// cookie age in seconds.
+				jwtTokenCookie.setMaxAge(1800);// cookie age in seconds.
 				response.addCookie(jwtTokenCookie);
 			}
 		} catch (Exception e) {

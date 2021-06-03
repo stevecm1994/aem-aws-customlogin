@@ -7,7 +7,7 @@ import org.apache.sling.api.SlingHttpServletResponse;
 
 import com.customlogin.core.aws.service.AWSConfigurations;
 
-public interface  RequestProcessor {
+public interface  AuthenticationRequestProcessor {
 	
 	public  void processRequest(SlingHttpServletRequest request, SlingHttpServletResponse response,AWSConfigurations awsConfigurations)
 			throws IOException;
