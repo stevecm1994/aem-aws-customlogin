@@ -1,18 +1,16 @@
-# Sample AEM project template
+# AEM Project for Custom Login Implementation
 
-This is a project template for AEM-based applications. It is intended as a best-practice set of examples as well as a potential starting point to develop your own functionality.
+This Project Implements functionalities like Signup , ConfirmSignUp , Login , Logout , User Profile Upation , User Details Display with the help of AWS Cognito for user Authentication and AWS DynamoDB for User Profile manupulation.
 
-## Modules
+## Major External Dependencies Used
 
-The main parts of the template are:
+These dependencies have been added to the prjects core pom file.
 
-* core: Java bundle containing all core functionality like OSGi services, listeners or schedulers, as well as component-related Java code such as servlets or request filters.
-* ui.apps: contains the /apps (and /etc) parts of the project, ie JS&CSS clientlibs, components, templates, runmode specific configs as well as Hobbes-tests
-* ui.content: contains sample content using the components from the ui.apps
-* ui.tests: Java bundle containing JUnit tests that are executed server-side. This bundle is not to be deployed onto production.
-* ui.launcher: contains glue code that deploys the ui.tests bundle (and dependent bundles) to the server and triggers the remote JUnit execution
+* AWS Cognito SDKs
+* AWS DynamoDB SDKs
+* Nimbus SDKs : for jwt token verifications
 
-## How to build
+## AWS Setup required for the project
 
 To build all the modules run in the project root directory the following command with Maven 3:
 
