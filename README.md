@@ -30,7 +30,13 @@ These dependencies have been added to the projects core pom file.
 For More Details refer : https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html#get-access-keys  
 
 ### AWS Congnito Set Up
+
+* https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html
+
 ### AWS DynamoDB Set Up
+
+* https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html
+
 To build all the modules run in the project root directory the following command with Maven 3:
 
     mvn clean install
