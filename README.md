@@ -4,14 +4,33 @@ This Project Implements functionalities like Signup , ConfirmSignUp , Login , Lo
 
 ## Major External Dependencies Used
 
-These dependencies have been added to the prjects core pom file.
+These dependencies have been added to the projects core pom file.
 
 * AWS Cognito SDKs
 * AWS DynamoDB SDKs
 * Nimbus SDKs : for jwt token verifications
+* Other Compile time dependencies required for the above mentioned.
 
 ## AWS Setup required for the project
 
+### AWS Secret Key Set Up
+
+* Open the IAM console at https://console.aws.amazon.com/iam/.
+
+* On the navigation menu, choose Users.
+
+* Choose your IAM user name (not the check box).
+
+* Open the Security credentials tab, and then choose Create access key.
+
+* Download the key pair, choose Download .csv file. Store the .csv file with keys in a secure location.
+
+* Access key can be viewed only at the time of generation , so if key is not saved at the time of creation , then we will have to create it once again.
+
+For More Details refer : https://docs.aws.amazon.com/powershell/latest/userguide/pstools-appendix-sign-up.html#get-access-keys  
+
+### AWS Congnito Set Up
+### AWS DynamoDB Set Up
 To build all the modules run in the project root directory the following command with Maven 3:
 
     mvn clean install
